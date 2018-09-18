@@ -85,6 +85,7 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
   const extrasQuestion: Question = {
     choices: [
       {
+        checked: true,
         name: 'Enable stricter type-checking',
         value: Extras.strict
       },
