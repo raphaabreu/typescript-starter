@@ -5,8 +5,8 @@
   "bin": {
     "typescript-starter": "./bin/typescript-starter"
   },
-  "main": "build/index.js",
-  "typings": "build/index.d.ts",
+  "main": "build/lib/index.js",
+  "typings": "build/lib/index.d.ts",
   "repository": "https://github.com/bitjson/typescript-starter",
   "license": "MIT",
   "keywords": [
@@ -139,10 +139,10 @@
     ]
   },
   "lint-staged": {
-     "src/**/*.ts": [
-       "tslint --fix --project .",
-       "prettier --write",
-       "git add"
-     ]
-   }
+    "src/**/*.ts": [
+      "tslint --fix --project .",
+      "prettier --write",
+      "git add"
+    ]
+  }
 }
