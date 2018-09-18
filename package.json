@@ -5,9 +5,8 @@
   "bin": {
     "typescript-starter": "./bin/typescript-starter"
   },
-  "main": "build/main/index.js",
-  "typings": "build/main/index.d.ts",
-  "module": "build/module/index.js",
+  "main": "build/index.js",
+  "typings": "build/index.d.ts",
   "repository": "https://github.com/bitjson/typescript-starter",
   "license": "MIT",
   "keywords": [
@@ -30,16 +29,14 @@
   ],
   "scripts": {
     "info": "npm-scripts-info",
-    "build": "run-s clean && run-p build:*",
-    "build:main": "tsc -p tsconfig.json",
-    "build:module": "tsc -p tsconfig.module.json",
+    "build": "run-s clean && tsc -p tsconfig.json",
     "fix": "run-s fix:*",
     "fix:prettier": "prettier \"src/**/*.ts\" --write",
     "fix:tslint": "tslint --fix --project .",
     "test": "run-s build test:*",
     "test:lint": "tslint --project . && prettier \"src/**/*.ts\" --list-different",
     "test:unit": "nyc --silent ava",
-    "watch": "run-s clean build:main && run-p \"build:main -- -w\" \"test:unit -- --watch\"",
+    "watch": "run-s clean build && run-p \"build -- -w\" \"test:unit -- --watch\"",
     "cov": "run-s build test:unit cov:html && opn coverage/index.html",
     "cov:html": "nyc report --reporter=html",
     "cov:send": "nyc report --reporter=lcov > coverage.lcov && codecov",
@@ -50,9 +47,10 @@
     "doc:publish": "gh-pages -m \"[ci skip] Updates\" -d build/docs",
     "version": "standard-version",
     "reset": "git clean -dfx && git reset --hard && npm i",
-    "clean": "trash build test",
+    "clean": "rimraf build test",
     "all": "run-s reset test cov:check doc:html",
-    "prepare-release": "run-s all version doc:publish"
+    "prepare-release": "run-s all version doc:publish",
+    "precommit": "lint-staged && npm test && npm run build && npm run doc:html && git add build"
   },
   "scripts-info": {
     "info": "Display information about the package scripts",
@@ -84,7 +82,7 @@
     "ora": "^3.0.0",
     "project-version": "^1.0.0",
     "replace-in-file": "^3.4.0",
-    "sha.js": "^2.4.11",
+    "debug": "^4.0.1",
     "update-notifier": "^2.5.0",
     "validate-npm-package-name": "^3.0.0"
   },
@@ -109,7 +107,9 @@
     "opn-cli": "^3.1.0",
     "prettier": "^1.13.4",
     "standard-version": "^4.4.0",
-    "trash-cli": "^1.4.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.2.2",
+    "rimraf": "^2.6.2",
     "tslint": "^5.10.0",
     "tslint-config-prettier": "^1.13.0",
     "tslint-immutable": "^4.5.4",
@@ -119,10 +119,10 @@
   "ava": {
     "failFast": true,
     "files": [
-      "build/main/**/*.spec.js"
+      "build/**/*.spec.js"
     ],
     "sources": [
-      "build/main/**/*.js"
+      "build/**/*.js"
     ]
   },
   "config": {
@@ -137,5 +137,12 @@
     "exclude": [
       "**/*.spec.js"
     ]
-  }
+  },
+  "lint-staged": {
+     "src/**/*.ts": [
+       "tslint --fix --project .",
+       "prettier --write",
+       "git add"
+     ]
+   }
 }
