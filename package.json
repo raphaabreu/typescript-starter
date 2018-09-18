@@ -1,5 +1,5 @@
 {
-  "name": "typescript-starter",
+  "name": "@raphaabreu/typescript-starter",
   "version": "2.3.10",
   "description": "A typescript starter for building javascript libraries and projects",
   "bin": {
@@ -7,7 +7,7 @@
   },
   "main": "build/lib/index.js",
   "typings": "build/lib/index.d.ts",
-  "repository": "https://github.com/bitjson/typescript-starter",
+  "repository": "https://github.com/raphaabreu/typescript-starter",
   "license": "MIT",
   "keywords": [
     "typescript",
