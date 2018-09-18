@@ -52,7 +52,7 @@ export const cloneRepo = (
     if (err.code === 'ENOENT') {
       throw new Error(`
     Git is not installed on your PATH. Please install Git and try again.
-      
+
     For more information, visit: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 `);
     } else {
@@ -119,7 +119,7 @@ export const initialCommit = (spawner: ExecaStatic) => async (
     [
       'commit',
       '-m',
-      `Initial commit\n\nCreated with bitjson/typescript-starter@${hash}`
+      `Initial commit\n\nCreated with raphaabreu/typescript-starter@${hash}`
     ],
     opts
   );
@@ -160,7 +160,7 @@ export const getRepoInfo = (starterVersion: string) => {
       }
     : {
         branch: `v${starterVersion}`,
-        repo: 'https://github.com/bitjson/typescript-starter.git'
+        repo: 'https://github.com/raphaabreu/typescript-starter.git'
       };
 };
 
